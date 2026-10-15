@@ -14,6 +14,12 @@ A secure, web-based bus pass generation and booking system built using **Python 
 * **Email Protocol:** SMTPLIB (SMTP_SSL)
 
 ## 💻 How to Run Locally
-git clone https://github.com/N-jeevanchowdary/CodeAlpha_cloudbuspass.git
-py app.py
-Open your browser and go to: `http://127.0.0.1:5000`
+
+1. Clone the repository:
+   git clone [https://github.com/N-jeevanchowdary/CodeAlpha_cloudbuspass.git](https://github.com/N-jeevanchowdary/CodeAlpha_cloudbuspass.git)
+
+2. Run the application:
+   py app.py
+
+3. Open your browser and go to:
+   [http://127.0.0.1:5000](http://127.0.0.1:5000)
