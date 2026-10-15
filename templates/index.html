@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Bus Pass System - Book Ticket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="day-mode">
+
+<main class="scene">
+
+    <div class="day-sky-elements" aria-hidden="true">
+        <div class="cloud cloud-one"><div class="puff p1"></div><div class="puff p2"></div><div class="puff p3"></div></div>
+        <div class="cloud cloud-two"><div class="puff p1"></div><div class="puff p2"></div><div class="puff p3"></div></div>
+        <div class="bird bird-one"></div><div class="bird bird-two"></div>
+    </div>
+
+    <div class="sun" aria-hidden="true"><div class="sun-rays"></div><div class="sun-core"></div><div class="sun-halo"></div></div>
+    <div class="moon" aria-hidden="true"><div class="moon-crater crater-one"></div><div class="moon-crater crater-two"></div><div class="moon-crater crater-three"></div></div>
+    <div class="stars" id="stars" aria-hidden="true"></div>
+
+    <button class="theme-toggle" id="themeToggle" type="button">
+        <span id="toggleIcon">☾</span>
+        <span id="toggleLabel">Night mode</span>
+    </button>
+
+    <section class="city" aria-hidden="true">
+        <div class="scenery-cluster">
+            <span class="sc-item tree">🌲</span><span class="sc-item house">🏡</span>
+            <span class="building building-one"><div class="windows"></div></span>
+            <span class="sc-item tree">🌲</span>
+            <span class="building building-two"><div class="windows"></div></span>
+            <span class="sc-item house">🏠</span>
+            <span class="building building-three"><div class="windows"></div></span>
+            <span class="sc-item tree">🌲</span>
+            <span class="building building-four"><div class="windows"></div></span>
+            <span class="sc-item house">🏡</span><span class="sc-item tree">🌲</span>
+        </div>
+        <div class="streetlamp lamp-one"><span class="lamp-head"></span><span class="lamp-post"></span><span class="lamp-light"></span></div>
+        <div class="streetlamp lamp-two"><span class="lamp-head"></span><span class="lamp-post"></span><span class="lamp-light"></span></div>
+    </section>
+
+    <div class="horizon"></div>
+
+    <div class="road" aria-hidden="true">
+        <div class="road-line"></div>
+        <div class="moving-bus">
+            <div class="bus-headlight-beam"></div>
+            <svg viewBox="0 0 120 45" width="110" height="42" class="bus-svg">
+                <rect x="2" y="5" width="116" height="26" rx="6" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+                <path d="M95 5 h15 c3 0 6 3 6 6 v15 h-21 z" fill="#0369a1"/>
+                <rect x="10" y="9" width="14" height="11" rx="2" fill="#bae6fd"/>
+                <rect x="28" y="9" width="14" height="11" rx="2" fill="#bae6fd"/>
+                <rect x="46" y="9" width="14" height="11" rx="2" fill="#bae6fd"/>
+                <rect x="64" y="9" width="14" height="11" rx="2" fill="#bae6fd"/>
+                <path d="M85 9 h18 v11 h-18 z" fill="#e0f2fe"/>
+                <rect x="114" y="24" width="3" height="4" fill="#fbbf24" rx="1"/>
+                <rect x="2" y="24" width="3" height="4" fill="#ef4444" rx="1"/>
+                <circle cx="28" cy="31" r="6" fill="#0f172a" stroke="#94a3b8" stroke-width="2"/>
+                <circle cx="28" cy="31" r="2.5" fill="#e2e8f0"/>
+                <circle cx="92" cy="31" r="6" fill="#0f172a" stroke="#94a3b8" stroke-width="2"/>
+                <circle cx="92" cy="31" r="2.5" fill="#e2e8f0"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- PAGE 1: BOOKING FORM -->
+    <section class="pass-card">
+        <div class="brand-mark">✦</div>
+        <p class="eyebrow">SMART TRANSIT • REAL TIME BOOKING</p>
+        <h1>Cloud Bus Pass System</h1>
+        <p class="subtitle">Enter details to generate official pass</p>
+
+        <form method="POST" action="/" class="pass-form">
+            <label for="passenger_name">Passenger Name *</label>
+            <input type="text" id="passenger_name" name="passenger_name" placeholder="Full Name" required>
+
+            <label for="email">Email Address * (For E-Ticket Delivery)</label>
+            <input type="email" id="email" name="email" placeholder="name@example.com" required>
+
+            <div class="field-row">
+                <div>
+                    <label for="source">Boarding Station *</label>
+                    <input type="text" id="source" name="source" placeholder="City/Town" list="city-list" required>
+                </div>
+                <div>
+                    <label for="destination">Drop Station *</label>
+                    <input type="text" id="destination" name="destination" placeholder="City/Town" list="city-list" required>
+                </div>
+            </div>
+
+            <label for="boarding_point">City Boarding Point / Pickup Location *</label>
+            <select id="boarding_point" name="boarding_point" required class="select-box">
+                <option value="" disabled selected>-- Select Pickup Point --</option>
+                <option value="Main Bus Stand Complex">Main Bus Stand Complex</option>
+                <option value="Railway Station Junction Circle">Railway Station Junction Circle</option>
+                <option value="City Bypass Highway Flyover">City Bypass Highway Flyover</option>
+                <option value="RTC Complex Terminal Gate 2">RTC Complex Terminal Gate 2</option>
+            </select>
+
+            <label for="bus_type">Select Bus Service & Fare *</label>
+            <select id="bus_type" name="bus_type" required class="select-box">
+                <option value="" disabled selected>-- Choose Bus Type --</option>
+                <option value="Cloud Express AC (Non-Stop)">Cloud Express AC (Non-Stop) - ₹650 / Seat</option>
+                <option value="Royal Sleeper Deluxe">Royal Sleeper Deluxe - ₹850 / Seat</option>
+                <option value="Super Luxury Express">Super Luxury Express - ₹450 / Seat</option>
+                <option value="Metro Star Volvo AC">Metro Star Volvo AC - ₹950 / Seat</option>
+            </select>
+
+            <div class="field-row">
+                <div>
+                    <label for="seats">Number of Passengers *</label>
+                    <select id="seats" name="seats" required class="select-box">
+                        <option value="1" selected>1 Ticket (1 Seat)</option>
+                        <option value="2">2 Tickets (2 Seats)</option>
+                        <option value="3">3 Tickets (3 Seats)</option>
+                        <option value="4">4 Tickets (4 Seats)</option>
+                        <option value="5">5 Tickets (5 Seats)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="travel_date">Travel Date *</label>
+                    <input type="date" id="travel_date" name="travel_date" required>
+                </div>
+            </div>
+
+            <button class="issue-button" type="submit">
+                ▣ &nbsp; Issue & Generate Pass &nbsp; →
+            </button>
+        </form>
+
+        {% if error %}
+        <div class="message error-message" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <p class="footer-note">● Digital Transit • Simple • Secure</p>
+    </section>
+
+    <!-- DATALIST -->
+    <datalist id="city-list">
+        <option value="Secunderabad"><option value="Hyderabad"><option value="Bhimavaram"><option value="Vijayawada"><option value="Visakhapatnam"><option value="Tirupati"><option value="Rajahmundry"><option value="Kakinada"><option value="Eluru"><option value="Guntur"><option value="Nellore"><option value="Kurnool"><option value="Kadapa"><option value="Anantapur"><option value="Ongole"><option value="Bangalore"><option value="Chennai"><option value="Mumbai"><option value="Pune"><option value="Delhi"><option value="Kolkata">
+    </datalist>
+
+</main>
+
+<script>
+    const body = document.body;
+    const toggle = document.getElementById("themeToggle");
+    const toggleIcon = document.getElementById("toggleIcon");
+    const toggleLabel = document.getElementById("toggleLabel");
+    const stars = document.getElementById("stars");
+
+    for (let i = 0; i < 80; i++) {
+        const star = document.createElement("span");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 65 + "%";
+        star.style.animationDelay = Math.random() * 3 + "s";
+        star.style.setProperty("--star-size", (Math.random() * 2.2 + 1) + "px");
+        stars.appendChild(star);
+    }
+
+    toggle.addEventListener("click", function () {
+        const isNight = body.classList.toggle("night-mode");
+        body.classList.toggle("day-mode", !isNight);
+        toggleIcon.textContent = isNight ? "☀" : "☾";
+        toggleLabel.textContent = isNight ? "Day mode" : "Night mode";
+    });
+
+    const dateInput = document.getElementById("travel_date");
+    const today = new Date();
+    const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    dateInput.min = localToday;
+</script>
+
+</body>
+</html>

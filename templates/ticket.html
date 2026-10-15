@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Bus Pass - {{ booking.pass_id }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="day-mode">
+
+<main class="scene">
+
+    <section class="pass-card ticket-card">
+        <div class="ticket-header">
+            <span class="brand-mark">✦</span>
+            <div>
+                <h2>Cloud Bus Transit Pass</h2>
+                <p class="pass-id-tag">Pass ID: {{ booking.pass_id }}</p>
+            </div>
+        </div>
+
+        <div class="ticket-badge">✓ CONFIRMED & EMAILED TO TICKET HOLDER</div>
+
+        <div class="ticket-body">
+            <div class="ticket-row">
+                <div>
+                    <small>Passenger Name</small>
+                    <p><strong>{{ booking.passenger_name }}</strong></p>
+                </div>
+                <div>
+                    <small>Email Delivery</small>
+                    <p>{{ booking.email }}</p>
+                </div>
+            </div>
+
+            <div class="ticket-row">
+                <div>
+                    <small>Route Journey</small>
+                    <p><strong>{{ booking.source }} ➔ {{ booking.destination }}</strong></p>
+                </div>
+                <div>
+                    <small>Travel Date</small>
+                    <p><strong>{{ booking.travel_date }}</strong></p>
+                </div>
+            </div>
+
+            <div class="ticket-row">
+                <div>
+                    <small>City Boarding Point</small>
+                    <p>{{ booking.boarding_point }}</p>
+                </div>
+                <div>
+                    <small>Tickets / Seats</small>
+                    <p><strong>{{ booking.seats }} Ticket(s)</strong></p>
+                </div>
+            </div>
+
+            <hr class="ticket-divider">
+
+            <div class="ticket-row">
+                <div>
+                    <small>Bus Service</small>
+                    <p><strong>{{ booking.bus_type }}</strong></p>
+                </div>
+                <div>
+                    <small>Est. Duration</small>
+                    <p>{{ booking.duration }}</p>
+                </div>
+            </div>
+
+            <div class="ticket-row">
+                <div>
+                    <small>On-Board Washroom</small>
+                    <p><strong>{{ booking.washroom }}</strong></p>
+                </div>
+                <div>
+                    <small>Route & Stops</small>
+                    <p>{{ booking.stops }}</p>
+                </div>
+            </div>
+
+            <div class="ticket-row">
+                <div style="width: 100%;">
+                    <small>Included Amenities</small>
+                    <p>{{ booking.amenities }}</p>
+                </div>
+            </div>
+
+            <div class="price-box">
+                <span>Total Fare Paid:</span>
+                <span class="price-amount">₹{{ booking.total_price }}</span>
+            </div>
+        </div>
+
+        <div class="ticket-actions">
+            <button type="button" class="print-button" onclick="window.print()">🖨 Print / Download Pass PDF</button>
+            <a href="/" class="back-link">← Book Another Pass</a>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>
